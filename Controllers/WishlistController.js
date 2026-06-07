@@ -73,22 +73,24 @@ const moveToCart = async (req, res) => {
     }
 
     const cartItem = new Cart({
+      userEmail: item.userId, 
       name: item.name,
       category: item.category,
       price: item.price,
       image: item.image,
       quantity: 1,
-      userId: item.userId,
     });
 
     await cartItem.save();
-
     await Wishlist.findByIdAndDelete(req.params.id);
 
     res.status(200).json({
+      success: true,
       message: "Moved To Cart",
     });
+
   } catch (error) {
+    console.log("MOVE TO CART ERROR:", error);
     res.status(500).json({
       message: error.message,
     });
