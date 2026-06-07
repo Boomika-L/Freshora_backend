@@ -28,6 +28,19 @@ const getCartItems = async (req, res) => {
     });
   }
 };
+const getCart = async (req, res) => {
+  try {
+    const items = await Cart.find({
+      userEmail: req.params.email
+    });
+
+    res.json(items);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
 
 const deleteCartItem = async (req, res) => {
   try {
@@ -67,4 +80,5 @@ module.exports = {
   getCartItems,
   deleteCartItem,
   updateQuantity,
+  getCart,
 };
