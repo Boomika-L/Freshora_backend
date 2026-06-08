@@ -34,7 +34,9 @@ const createOrder = async (req, res) => {
     });
 
     await newOrder.save();
-
+  await Cart.deleteMany({
+      userEmail: userEmail,
+    });
     res.status(201).json({
       message: "Order placed successfully",
       order: newOrder,
