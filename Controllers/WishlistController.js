@@ -67,6 +67,8 @@ const moveToCart = async (req, res) => {
   try {
     const item = await Wishlist.findById(req.params.id);
 
+    console.log("Wishlist Item:", item);
+
     if (!item) {
       return res.status(404).json({
         message: "Item Not Found",
@@ -74,7 +76,7 @@ const moveToCart = async (req, res) => {
     }
 
     const cartItem = new Cart({
-       userEmail: item.userEmail, 
+      userEmail: item.userEmail,
       name: item.name,
       category: item.category,
       price: item.price,
@@ -92,12 +94,12 @@ const moveToCart = async (req, res) => {
 
   } catch (error) {
     console.log("MOVE TO CART ERROR:", error);
+
     res.status(500).json({
       message: error.message,
     });
   }
 };
-
 module.exports = {
   addWishlist,
   getWishlist,
