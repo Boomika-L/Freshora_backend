@@ -3,7 +3,7 @@ const Cart = require("../Models/Cart");
 
 const addWishlist = async (req, res) => {
   try {
-    const { userId, name, category, price, image } = req.body;
+    const { userId,userEmail, name, category, price, image } = req.body;
 
     const exists = await Wishlist.findOne({ userId, name });
 
@@ -15,6 +15,7 @@ const addWishlist = async (req, res) => {
 
     const wishlist = new Wishlist({
       userId,
+      userEmail,
       name,
       category,
       price,
@@ -73,7 +74,7 @@ const moveToCart = async (req, res) => {
     }
 
     const cartItem = new Cart({
-      userEmail: item.userId, 
+       userEmail: item.userEmail, 
       name: item.name,
       category: item.category,
       price: item.price,
